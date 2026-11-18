@@ -1,0 +1,18 @@
+name: NeoBum
+version: 1.0.0
+main: dev.neobum.NeoBum
+api-version: '1.21'
+description: Throwing Discs (boomerangs) - vanilla-style
+author: Neo
+commands:
+  neobum:
+    description: NeoBum main command
+    usage: /neobum <give|reload|list>
+    aliases: [nb]
+permissions:
+  neobum.use:
+    description: Allows throwing discs
+    default: true
+  neobum.admin:
+    description: Allows /neobum give and /neobum reload
+    default: op

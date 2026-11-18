@@ -1,0 +1,142 @@
+# ==========================================================
+#  NeoBum - Throwing Discs (метательные диски)
+#  После изменения: /neobum reload
+# ==========================================================
+
+general:
+  # true = писать в консоль, что делает плагин (для поиска проблем)
+  debug: false
+
+  # Предмет-основа (должен быть непригодным для использования/установки).
+  # Кулдаун в хотбаре (серая шторка) работает по этому предмету.
+  base-material: ECHO_SHARD
+
+  # Кулдаун после броска (тики, 20 = 1 секунда)
+  cooldown-ticks: 20
+  # Кулдаун после того как диск вернулся в слот
+  catch-cooldown-ticks: 20
+
+  # Индикатор перезарядки под прицелом + анимация "подъёма" предмета
+  # при взятии в руку (как у булавы). Время в секундах.
+  attack-indicator:
+    enabled: true
+    seconds: 1.0
+
+  # Во сколько раз диск замедляется в воде
+  water-slowdown: 1.25
+
+  # Абсолютный максимум пути диска "туда" (блоки), даже с отскоками
+  hard-max-distance: 30.0
+  # Максимум отскоков
+  max-bounces: 8
+  # Каждый отскок ускоряет диск
+  bounce-speed-multiplier: 1.08
+  # Каждый отскок увеличивает дальность (блоки, но не выше hard-max-distance)
+  bounce-extra-range: 3.0
+
+  # Радиус попадания по мобам (блоки)
+  hit-radius: 0.3
+  # Диск пролетает сквозь мобов (true) или разворачивается при первом попадании (false)
+  pierce-entities: true
+  # Может ли диск бить мобов повторно на обратном пути
+  hit-again-on-return: true
+  # Бить игроков (также учитывается pvp мира)
+  hit-players: true
+  # Дополнительный отброс по направлению полёта
+  knockback: 0.35
+
+  # Радиус "поимки" диска игроком на возврате
+  catch-radius: 1.2
+  # Через сколько тиков возврата диск принудительно возвращается
+  return-timeout-ticks: 200
+
+  # Вращение диска (градусы за тик) и размер модели
+  spin-degrees-per-tick: 45.0
+  display-scale: 1.0
+
+  # Прочность
+  durability:
+    cost-per-throw: 0
+    cost-per-hit: 1
+
+  # Описание предмета. %damage% - базовый урон диска.
+  lore:
+    - "&7When Thrown:"
+    - "&2 %damage% Throwing Damage"
+
+  # Звуки: key / volume / pitch
+  sounds:
+    throw:    { key: "minecraft:item.trident.throw",      volume: 1.0, pitch: 1.3 }
+    hit:      { key: "minecraft:entity.player.attack.strong", volume: 1.0, pitch: 1.0 }
+    ricochet: { key: "minecraft:item.trident.hit_ground",  volume: 1.0, pitch: 1.2 }
+    catch:    { key: "minecraft:item.trident.return",      volume: 0.8, pitch: 1.4 }
+    break:    { key: "minecraft:entity.item.break",        volume: 1.0, pitch: 1.0 }
+
+  particles:
+    enabled: true
+
+  # Огонь: диск загорается, пролетая через огонь/лаву/горящего моба.
+  # Горящий диск поджигает мобов, TNT и вагонетки с TNT.
+  fire:
+    enabled: true
+    burn-ticks: 100            # сколько тиков диск горит (100 = 5 сек), обновляется в огне
+    entity-fire-ticks: 80      # на сколько тиков поджигает мобов при попадании
+    ignite-tnt: true           # поджигать блоки TNT
+    ignite-tnt-minecart: true  # поджигать вагонетки с TNT
+    ignite-flammable-blocks: false  # ставить огонь на горючие блоки при отскоке (может гриферить!)
+    extinguish-in-water: true  # вода гасит диск
+    ignite-sources:            # что поджигает диск
+      - FIRE
+      - SOUL_FIRE
+      - LAVA
+      - CAMPFIRE
+      - SOUL_CAMPFIRE
+
+# ----------------------------------------------------------
+# Диски. Урон = base + per-second * (секунд полёта) + per-bounce * (отскоки)
+# но не больше base + max-bonus.
+#   speed        - скорость, блоков за тик (20 тиков = 1 сек)
+#   range        - дальность полёта "туда" (блоки)
+#   return-speed - скорость возврата, блоков за тик
+# ----------------------------------------------------------
+discs:
+  copper:
+    enabled: true
+    display-name: "Copper Throwing Disc"
+    durability: 200
+    damage: { base: 5.0, per-second: 0.6, per-bounce: 0.8, max-bonus: 3.0 }
+    speed: 1.4
+    range: 27.0
+    return-speed: 1.5
+  iron:
+    enabled: true
+    display-name: "Iron Throwing Disc"
+    durability: 250
+    damage: { base: 7.0, per-second: 0.7, per-bounce: 1.0, max-bonus: 4.0 }
+    speed: 1.5
+    range: 28.0
+    return-speed: 1.6
+  golden:
+    enabled: true
+    display-name: "Golden Throwing Disc"
+    durability: 32
+    damage: { base: 6.0, per-second: 0.9, per-bounce: 1.2, max-bonus: 4.0 }
+    speed: 1.8
+    range: 28.0
+    return-speed: 1.9
+  diamond:
+    enabled: true
+    display-name: "Diamond Throwing Disc"
+    durability: 1561
+    damage: { base: 8.0, per-second: 0.8, per-bounce: 1.1, max-bonus: 4.0 }
+    speed: 1.6
+    range: 29.0
+    return-speed: 1.7
+  netherite:
+    enabled: true
+    display-name: "Netherite Throwing Disc"
+    durability: 2031
+    damage: { base: 9.0, per-second: 0.9, per-bounce: 1.2, max-bonus: 5.0 }
+    speed: 1.7
+    range: 30.0
+    return-speed: 1.8
